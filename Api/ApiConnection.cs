@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Api
 {
-    public class ApiConnection
+    public static class ApiConnection
     {
         public static HttpClient ApiClient { get; set; }
         
