@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
+using UserAdminApp.ApiControl;
 
 namespace UserAdminApp
 {
@@ -11,6 +13,11 @@ namespace UserAdminApp
         {
             InitializeComponent();
             ApiHelper.InitializeClient();
+        }
+
+        private async Task GetOrganization(int organizationCount = 0)
+        {
+            var organization = await OrganizationProcessor.LoadOrganization(organizationCount);
         }
     }
 }

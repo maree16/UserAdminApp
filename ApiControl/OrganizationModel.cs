@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UserAdminApp.ApiControl
 {
-    class OrganizationModel
+    public class OrganizationModel
     {
         public string OrganizationName { get; set; }
         public string OrganizationType { get; set; }
