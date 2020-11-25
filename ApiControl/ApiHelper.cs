@@ -6,9 +6,10 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace UserAdminApp
 {
-    class ApiHelper
+    public class ApiHelper
     {
             public static HttpClient http { get; set; }
 
@@ -17,7 +18,7 @@ namespace UserAdminApp
         {
             http = new HttpClient();
             http.DefaultRequestHeaders.Accept.Clear();
-            http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/JSON"));
+            http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
         }
     }
