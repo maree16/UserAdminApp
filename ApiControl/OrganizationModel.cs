@@ -13,5 +13,9 @@ namespace UserAdminApp.ApiControl
         public string OrganizationUrl { get; set; }
         public int OrganizationRegistrationNumber { get; set; }
 
+
+
+
+
     }
 }
