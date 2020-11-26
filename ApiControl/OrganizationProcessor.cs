@@ -16,9 +16,9 @@ namespace UserAdminApp.ApiControl
         // A task is an object that represents some work that should be done. 
         // The task can tell you if the work is completed and if the operation returns a result
 
-        public static async Task<OrganizationModel> LoadOrganization(int organizationCount  = 0) 
+        public static async Task<OrganizationModel> LoadOrganization() 
         {
-            string Url = ConfigurationManager.AppSettings["OrganizationApiUrl"].ToString();
+            string Url = ConfigurationManager.AppSettings["OrganizationApiUrl"];
 
           
             using (HttpResponseMessage response = await ApiHelper.http.GetAsync(Url)) 
@@ -26,8 +26,9 @@ namespace UserAdminApp.ApiControl
                 if (response.IsSuccessStatusCode) 
                 {
                         OrganizationModel organization = await response.Content.ReadAsAsync<OrganizationModel>();
+                        
                         return organization;
-                } 
+                }
                 else
                 {
                     throw new Exception(response.ReasonPhrase);

@@ -15,7 +15,5 @@ namespace UserAdminApp.ApiControl
 
 
 
-
-
     }
 }

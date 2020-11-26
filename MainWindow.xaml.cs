@@ -15,15 +15,15 @@ namespace UserAdminApp
             ApiHelper.InitializeClient();
         }
 
-        private async Task GetOrganization(int organizationCount = 0)
+         private async void GetOrganization(object sender, RoutedEventArgs e)
         {
-            var organization = await OrganizationProcessor.LoadOrganization(organizationCount);
-
+            var organization = await OrganizationProcessor.LoadOrganization();
+            buttonText.Text = organization.OrganizationUrl;
+           
         }
+            
 
-        private async void Load_Record(object sender, RoutedEventArgs e)
-        {
-            await GetOrganization();  
         }
     }
-}
+
+ 
