@@ -18,13 +18,9 @@ namespace UserAdminApp.ApiControl
 
         public static async Task<OrganizationModel> LoadOrganization(int organizationCount  = 0) 
         {
-            string Url = ConfigurationManager.AppSettings["OrganizationApiUrl"];
-          
-            if (organizationCount > 0)
-            {
-                Url = Url+"/Organization";
-            }
+            string Url = ConfigurationManager.AppSettings["OrganizationApiUrl"].ToString();
 
+          
             using (HttpResponseMessage response = await ApiHelper.http.GetAsync(Url)) 
             {
                 if (response.IsSuccessStatusCode) 

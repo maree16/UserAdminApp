@@ -18,6 +18,12 @@ namespace UserAdminApp
         private async Task GetOrganization(int organizationCount = 0)
         {
             var organization = await OrganizationProcessor.LoadOrganization(organizationCount);
+
+        }
+
+        private async void Load_Record(object sender, RoutedEventArgs e)
+        {
+            await GetOrganization();  
         }
     }
 }
