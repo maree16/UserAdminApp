@@ -15,15 +15,18 @@ namespace UserAdminApp
             ApiHelper.InitializeClient();
         }
 
-         private async void GetOrganization(object sender, RoutedEventArgs e)
+        /* private async void GetOrganization(object sender, RoutedEventArgs e)
         {
             var organization = await OrganizationProcessor.LoadOrganization();
-            buttonText.Text = organization.OrganizationUrl;
+           /// buttonText.Text = organization.OrganizationRegistrationNumber.ToString();
            
         }
-            
+        */
+        private void AddPerson_Click(object sender, RoutedEventArgs e)
+        {
 
         }
+    }
     }
 
  

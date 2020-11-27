@@ -5,22 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserAdminApp"
         mc:Ignorable="d"
-        Title="MainWindow" Margin="20" Height="450" Width="600" WindowStartupLocation="CenterScreen">
-    <Grid Margin="-2,0,2,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+        Title="WPF - Home " Height="400" Width="520" BorderBrush="Black" BorderThickness="1" WindowStartupLocation="CenterScreen">
+    <Grid>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
-        <Button x:Name="button" Width="100" Height="100" Click="GetOrganization" Margin="246,162,246,157" Grid.Row="1" Grid.Column="2">organization</Button>
-        <TextBlock x:Name="buttonText" FontSize="18" Width="200" Height="200" Grid.Row="1" Grid.Column="1"></TextBlock>
+
+
+
+
+        <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" FontSize="30" FontWeight="Bold" Margin="0,20,0,10">USER ADMIN PANEL</TextBlock>
+        <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.RowSpan="2"  Grid.ColumnSpan="2" VerticalAlignment="Center" >
+            <Button x:Name="GetEmployee" Width="200" Height="50" Margin="0,26,0,25">Employee Records</Button>
+            <Button x:Name="GetOrganization" Width="200" Height="50">Organization Records</Button>
+        </StackPanel>
+
+
+
+
+
+        <TextBlock HorizontalAlignment="left" Grid.Column="1" Grid.Row="6" VerticalAlignment="Bottom" Margin="2,0,0,0" FontSize="15" FontWeight="Bold" Grid.ColumnSpan="2">Change Theme...</TextBlock>
     </Grid>
 </Window>
