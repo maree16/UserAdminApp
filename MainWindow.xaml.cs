@@ -22,11 +22,20 @@ namespace UserAdminApp
            
         }
         */
-        private void AddPerson_Click(object sender, RoutedEventArgs e)
-        {
 
+        private void EButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 employeeWindow = new Window1();
+            employeeWindow.Show();
+        }
+
+        private void OButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            Window2 organizationWindow = new Window2();
+            organizationWindow.Show();
         }
     }
-    }
+}
+   
 
  

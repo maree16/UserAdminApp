@@ -15,16 +15,13 @@ using System.Windows.Shapes;
 namespace UserAdminApp
 {
     /// <summary>
-    /// Interaction logic for OButton.xaml
+    /// Interaction logic for Window2.xaml
     /// </summary>
-    public partial class OButton : Window
+    public partial class Window2 : Window
     {
-        public OButton()
+        public Window2()
         {
             InitializeComponent();
-
         }
-
-
     }
 }
