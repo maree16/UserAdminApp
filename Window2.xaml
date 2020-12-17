@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserAdminApp"
         mc:Ignorable="d"
-        Title="Organization Records" Height="400" Width="520" BorderBrush="Black" BorderThickness="1" WindowStartupLocation="CenterScreen">
+        Title="Organization Records"   Style="{DynamicResource CustomWindowStyle}"
+        Height="400" Width="520" BorderThickness="1" WindowStartupLocation="CenterScreen">
     <Grid>
         
     </Grid>

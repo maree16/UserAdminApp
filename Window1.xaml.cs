@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UserAdminApp.ApiControl;
 
 namespace UserAdminApp
 {
@@ -19,59 +21,40 @@ namespace UserAdminApp
     /// </summary>
     public partial class Window1 : Window
     {
-        Employee employee = new Employee { FirstName = "Salman", LastName = "Ahmad" };
 
         public Window1()
         {
             InitializeComponent();
-            this.DataContext = employee;
-
+            ObservableCollection<User> items = new ObservableCollection<User>();
+            items.Add(new User() { Name = "John Doe", Age = 42, Mail = "john@doe-family.com" });
+            items.Add(new User() { Name = "Jane Doe", Age = 39, Mail = "jane@doe-family.com" });
+            items.Add(new User() { Name = "Sammy Doe", Age = 13, Mail = "sammy.doe@gmail.com" });
+            
+            lvDataBinding.ItemsSource = items;
         }
 
 
-
-
-
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void GetOrganization(object sender, RoutedEventArgs e)
         {
-            string message = employee.FirstName + employee.LastName;
-            MessageBox.Show(message);
+            var organization = await OrganizationProcessor.LoadOrganization();
+            buttonText.Text = organization.OrganizationName.ToString();
+
         }
+    }
 
 
-        public class Employee
+    public class User
+    {
+        public string Name { get; set; }
+
+        public int Age { get; set; }
+        public string Mail { get; set; }
+        public override string ToString()
         {
-
-            private string firstName;
-
-            public string FirstName
-            {
-                get { return firstName; }
-                set
-                {
-                    if (value != firstName)
-                    {
-                        firstName = value;
-                    }
-                }
-            }
-
-            private string lastName;
-
-            public string LastName
-            {
-                get { return lastName; }
-                set {
-                    if (value != lastName)
-                    {
-                        lastName = value;
-                    }
-                }
-
-            }
-
+            return this.Name + ", " + this.Age + " years old" + this.Mail;
         }
 
     }
-} 
+
+
+}

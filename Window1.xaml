@@ -5,60 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserAdminApp"
         mc:Ignorable="d"
-        Title="Employee Records" Height="400" Width="520" BorderBrush="Black" BorderThickness="1" WindowStartupLocation="CenterScreen">
+        Title="Employee Records"   Style="{DynamicResource CustomWindowStyle}"
+         Height="400" Width="520" BorderThickness="1" WindowStartupLocation="CenterScreen">
     <Grid>
+
         <Grid.RowDefinitions>
-        <RowDefinition Height="20" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="*" />
-        <RowDefinition Height="20" />
-    </Grid.RowDefinitions>
-
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="20" />
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="20" />
-    </Grid.ColumnDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
 
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
 
-    <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" FontSize="30" FontWeight="Bold" Margin="0,0,0,10">Employee Records</TextBlock>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2"   Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
+        <TextBlock Text="SNO" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
+        <TextBlock Text="First Name" FontWeight="Bold" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" />
+        <TextBlock Text="Last Name" FontWeight="Bold" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center"/>
+        <Button Click="GetOrganization" Grid.Row="0" Grid.Column="1">click</Button>
+        <TextBlock x:Name="buttonText" Grid.Row="0" Grid.Column="2"></TextBlock>
+        <ListView Margin="10" Name="lvDataBinding" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
            
-            <Label Name = "FirstnameLabel">_FirstName:</Label>
-
-            <Label Name = "LastnameLabel" >_LastName:</Label>
-        
-
-    </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
-            <TextBox Name = "firstnameText" Text = "{Binding FirstName, Mode = TwoWay}" Margin="0,0,10,0" />
-            <TextBox Name = "lastNameText" Text = "{Binding LastName, Mode = TwoWay}"/>
-        </StackPanel>
-
-        <ItemsControl Grid.Row="4" Grid.RowSpan="2">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="1" Margin="10" Padding="10">
-                        
-                    </Border>
+                    <WrapPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding Name}" FontWeight="Bold" />
+                        <TextBox Text="{Binding Age}" FontWeight="Bold" />
+                        <TextBox Text="{Binding Mail}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                    </WrapPanel>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </ListView.ItemTemplate>
 
-
-        
+        </ListView>
     </Grid>
 </Window>

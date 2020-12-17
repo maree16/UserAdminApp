@@ -1,5 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using TheRThemes;
 using UserAdminApp.ApiControl;
 
 namespace UserAdminApp
@@ -22,7 +26,19 @@ namespace UserAdminApp
            
         }
         */
+        private void ChangeTheme(object sender, RoutedEventArgs e)
+        {
+            switch (int.Parse(((MenuItem)sender).Uid))
+            {
+                case 0: ThemesController.SetTheme(ThemesController.ThemeTypes.Light); break;
+                case 1: ThemesController.SetTheme(ThemesController.ThemeTypes.Blue); break;
+                case 2: ThemesController.SetTheme(ThemesController.ThemeTypes.Dark); break;
+                case 3: ThemesController.SetTheme(ThemesController.ThemeTypes.ColourfulDark); break;
+            }
+            e.Handled = true;
+        }
 
+        
         private void EButton_Click(object sender, RoutedEventArgs e)
         {
             Window1 employeeWindow = new Window1();

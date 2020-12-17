@@ -18,7 +18,7 @@ namespace UserAdminApp.ApiControl
 
         public static async Task<OrganizationModel> LoadOrganization() 
         {
-            string Url = ConfigurationManager.AppSettings["OrganizationApiUrl"];
+            string Url = ConfigurationManager.AppSettings["OrganizationPostApiUrl"];
 
           
             using (HttpResponseMessage response = await ApiHelper.http.GetAsync(Url)) 
