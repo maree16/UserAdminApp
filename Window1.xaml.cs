@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -25,35 +27,55 @@ namespace UserAdminApp
         public Window1()
         {
             InitializeComponent();
-            ObservableCollection<User> items = new ObservableCollection<User>();
-            items.Add(new User() { Name = "John Doe", Age = 42, Mail = "john@doe-family.com" });
-            items.Add(new User() { Name = "Jane Doe", Age = 39, Mail = "jane@doe-family.com" });
-            items.Add(new User() { Name = "Sammy Doe", Age = 13, Mail = "sammy.doe@gmail.com" });
-            
-            lvDataBinding.ItemsSource = items;
+        }
+
+
+        // Add loadingrow function In datagrid for that
+        //void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        //{
+        //    e.Row.Header = (e.Row.GetIndex()).ToString();
+        //}
+
+        private void UpdateDataGrid()
+        {
+            DataTable dt = new DataTable();
+            ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
+            employees.Add(new Employee() { FirstName = "John", LastName = " Doe", });
+            employees.Add(new Employee() { FirstName = "Jane", LastName = " Doe", });
+            employees.Add(new Employee() { FirstName = "Sammy", LastName = " Doe", });
+
+     
+            MainDataGrid.ItemsSource = employees;
+
         }
 
 
         private async void GetOrganization(object sender, RoutedEventArgs e)
         {
             var organization = await OrganizationProcessor.LoadOrganization();
-            buttonText.Text = organization.OrganizationName.ToString();
+//            buttonText.Text = organization.OrganizationName.ToString();
 
+        //}
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.UpdateDataGrid();
         }
     }
 
 
-    public class User
+    public class Employee
     {
-        public string Name { get; set; }
+        public string FirstName { get; set; }
 
-        public int Age { get; set; }
-        public string Mail { get; set; }
-        public override string ToString()
-        {
-            return this.Name + ", " + this.Age + " years old" + this.Mail;
-        }
-
+        public string LastName { get; set; }
+       
+   
     }
 
 

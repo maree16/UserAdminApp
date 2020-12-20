@@ -70,7 +70,7 @@
                         <Rectangle Stroke="#FF848484" Fill="#FFE8E8E8" StrokeThickness="2" StrokeLineJoin="Round" BitmapEffect="{StaticResource NormalShadow}"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Colourful Light" Template="{DynamicResource SingleDropDownMenuItem}" Click="ChangeTheme" Uid="1">
+                <MenuItem Header="Blue" Template="{DynamicResource SingleDropDownMenuItem}" Click="ChangeTheme" Uid="1">
                     <MenuItem.Icon>
                         <Rectangle Stroke="#FF2C7FF5" Fill="#2929FF" StrokeThickness="2" StrokeLineJoin="Round" BitmapEffect="{StaticResource NormalShadow}"/>
                     </MenuItem.Icon>
@@ -89,7 +89,7 @@
         </Menu>
 
 
-        <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" FontSize="26" FontWeight="Bold" Margin="0,25,0,10">USER ADMIN PANEL</TextBlock>
+        <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" FontSize="26" FontWeight="Bold" Margin="0,25,0,10" >USER ADMIN PANEL</TextBlock>
         <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.RowSpan="2"  Grid.ColumnSpan="2" VerticalAlignment="Center" >
             <Button Click="EButton_Click" Width="200" Height="50" Margin="0,26,0,25">Employee Records</Button>
             <Button Click="OButton_Click_1" Width="200" Height="50">Organization Records</Button>

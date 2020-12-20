@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:UserAdminApp"
         mc:Ignorable="d"
         Title="Employee Records"   Style="{DynamicResource CustomWindowStyle}"
-         Height="400" Width="520" BorderThickness="1" WindowStartupLocation="CenterScreen">
+         Height="400" Width="620" BorderThickness="1" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="20"></RowDefinition>
@@ -21,31 +21,39 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="53*"></ColumnDefinition>
+            <ColumnDefinition Width="23*"></ColumnDefinition>
+            <ColumnDefinition Width="190"></ColumnDefinition>
 
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
 
-        <TextBlock Text="SNO" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
-        <TextBlock Text="First Name" FontWeight="Bold" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" />
-        <TextBlock Text="Last Name" FontWeight="Bold" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center"/>
-        <Button Click="GetOrganization" Grid.Row="0" Grid.Column="1">click</Button>
-        <TextBlock x:Name="buttonText" Grid.Row="0" Grid.Column="2"></TextBlock>
-        <ListView Margin="10" Name="lvDataBinding" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-           
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <WrapPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding Name}" FontWeight="Bold" />
-                        <TextBox Text="{Binding Age}" FontWeight="Bold" />
-                        <TextBox Text="{Binding Mail}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                    </WrapPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
 
-        </ListView>
+        <GroupBox Header="Employee Record"   Padding="10" Grid.Row="1" Grid.Column="1"  Grid.RowSpan="3" HorizontalAlignment="Left" Width="256">
+            <StackPanel VerticalAlignment="Top" Margin="10,10,10,0">
+                <TextBlock Margin="0,0,0,8">EmployeeId:</TextBlock>
+                <TextBox  Margin="0,0,0,8" />
+
+                <TextBlock Margin="0,0,0,8">First Name:</TextBlock>
+                <TextBox Margin="0,0,0,8" />
+
+                <TextBlock Margin="0,0,0,8">Last Name:</TextBlock>
+                <TextBox Margin="0,0,0,8" />
+
+            </StackPanel>
+
+        </GroupBox>
+        <WrapPanel  Grid.Row="3"  Grid.Column="1"    Grid.RowSpan="2" HorizontalAlignment="Left" Orientation="Horizontal" Width="256" Margin="0,55,0,0">
+            <Button Content="Add"  Height="30"   Width="80" Click="Button_Click"/>
+            <Button Content="Update"  Height="30"  Width="80" Click="Button_Click" Margin="8,8,8,8"/>
+            <Button Content="Delete"  Height="30"  Width="80" Click="Button_Click"  />
+            <Button Content="Reset Form"  Height="30"  Width="80" Click="Button_Click" Margin="90,0,0,0"/>
+
+        </WrapPanel>
+        <DataGrid x:Name="MainDataGrid"    Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="Left" Height="287" Margin="10,0,0,0" Grid.Row="1" Grid.RowSpan="4" VerticalAlignment="Top" Width="295" >
+            </DataGrid>
+
+   
     </Grid>
 </Window>

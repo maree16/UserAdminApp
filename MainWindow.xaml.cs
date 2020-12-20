@@ -26,6 +26,7 @@ namespace UserAdminApp
            
         }
         */
+        
         private void ChangeTheme(object sender, RoutedEventArgs e)
         {
             switch (int.Parse(((MenuItem)sender).Uid))
