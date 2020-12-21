@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,12 +7,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
+using System.Configuration;
 using UserAdminApp.ApiControl;
+using System.Collections.ObjectModel;
 
 namespace UserAdminApp
 {
@@ -26,7 +27,9 @@ namespace UserAdminApp
 
         public Window1()
         {
+        
             InitializeComponent();
+            
         }
 
 
@@ -39,7 +42,7 @@ namespace UserAdminApp
         private void UpdateDataGrid()
         {
             DataTable dt = new DataTable();
-            ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
+            ObservableCollection<Employee> employees = new ObservableCollection<Employee>(); 
             employees.Add(new Employee() { FirstName = "John", LastName = " Doe", });
             employees.Add(new Employee() { FirstName = "Jane", LastName = " Doe", });
             employees.Add(new Employee() { FirstName = "Sammy", LastName = " Doe", });
@@ -55,28 +58,71 @@ namespace UserAdminApp
             var organization = await OrganizationProcessor.LoadOrganization();
 //            buttonText.Text = organization.OrganizationName.ToString();
 
-        //}
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            
             this.UpdateDataGrid();
+        
         }
-    }
 
+
+        private void Button_Click_Add(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Button_Click_Update(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Button_Click_Delete(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Button_Click_Reset(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AUD(string statement, int state)
+        {
+            //String Message = '';
+        }
+
+    
 
     public class Employee
-    {
-        public string FirstName { get; set; }
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        
+        }
 
-        public string LastName { get; set; }
-       
-   
+        private void MainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid dg = sender as DataGrid;
+
+            MessageBox.Show("SelectionChanged event happened!");
+
+            DataGridRow dr = dg.SelectedItem as DataGridRow;
+
+            Employee employee = (Employee)dg.SelectedItem;
+            if (employee != null)
+            {
+
+                       firstName_txtbox.Text = employee.FirstName.ToString();
+                        lastName_txtbox.Text = employee.LastName.ToString();
+
+                Add_btn.IsEnabled = false;
+                Update_btn.IsEnabled = true;
+                Delete_btn.IsEnabled = true;
+
+            }
+        }
+
+
     }
-
-
 }
