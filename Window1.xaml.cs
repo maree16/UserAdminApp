@@ -16,6 +16,7 @@ using System.Data;
 using System.Configuration;
 using UserAdminApp.ApiControl;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 
 namespace UserAdminApp
 {
@@ -69,31 +70,82 @@ namespace UserAdminApp
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-            
+            var first_Name = firstName_txtbox.Text;
+             var last_Name = lastName_txtbox.Text;
+            EmployeeModel p = new EmployeeModel { FirstName = first_Name, LastName = last_Name };
+
+        
+            this.AUD(p, 0, null);
+
         }
 
         private void Button_Click_Update(object sender, RoutedEventArgs e)
         {
 
+            var first_Name = firstName_txtbox.Text;
+            string id = employeeId_txtbox.Text;
+            var last_Name = lastName_txtbox.Text;
+            EmployeeModel p = new EmployeeModel { FirstName = first_Name , LastName = last_Name };
+
+            //Tranform it to Json object
+          
+       
+              this.AUD(p, 1, id);
+
         }
         private void Button_Click_Delete(object sender, RoutedEventArgs e)
         {
+            string id = employeeId_txtbox.Text;
 
+            this.AUD(null, 2, id);
         }
         private void Button_Click_Reset(object sender, RoutedEventArgs e)
         {
 
         }
-
-        private void AUD(string statement, int state)
+        private void resetAll()
         {
-            //String Message = '';
+            employeeId_txtbox.Text = "";
+            firstName_txtbox.Text = "";
+            lastName_txtbox.Text = "";
+      
+            Add_btn.IsEnabled = true;
+            Update_btn.IsEnabled = false;
+            Delete_btn.IsEnabled = false;
         }
 
-    
+        private void reset_btn_Click(object sender, RoutedEventArgs e)
+        {
+            this.resetAll();
+        }
 
-   
+        private  void AUD(EmployeeModel statement, int state, string id)
+        {
+            String msg = "";
 
+
+           
+            switch (state)
+            {
+                case 0:
+                    msg = "Row Inserted Successfully!";
+                    OrganizationMethods.PostMethod(statement);
+
+                    break;
+                case 1:
+                    msg = "Row Updated Successfully!";
+                    OrganizationMethods.PutMethod(statement,id);
+                    break;
+                case 2:
+                    msg = "Row Deleted Successfully!";
+                    OrganizationMethods.DeleteMethod(id);
+                    break;
+            }
+                    MessageBox.Show(msg);
+     //               this.GetEmployee();
+        }
+
+     
         private void MainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dg = sender as DataGrid;
