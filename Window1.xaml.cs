@@ -35,11 +35,12 @@ namespace UserAdminApp
 
         }
 
-        private async void GetEmployee(object sender, RoutedEventArgs e)
+        private async Task<ObservableCollection<EmployeeModel>> GetEmployee()
         {
-           List<EmployeeModel> employees = await EmployeeProcessor.LoadEmployee();
+            var employees = await EmployeeProcessor.LoadEmployee();
 
-            MainDataGrid.ItemsSource = employees;
+
+            return employees;
 
 
         }
@@ -52,21 +53,15 @@ namespace UserAdminApp
         //    e.Row.Header = (e.Row.GetIndex()).ToString();
         //}
 
-        //private void UpdateDataGrid()
-        //{
-        //    DataTable dt = new DataTable();
-        //    ObservableCollection<Employee> employees = new ObservableCollection<Employee>(); 
-        //    employees.Add(new Employee() { FirstName = "John", LastName = " Doe", });
-        //    employees.Add(new Employee() { FirstName = "Jane", LastName = " Doe", });
-        //    employees.Add(new Employee() { FirstName = "Sammy", LastName = " Doe", });
+        private async void UpdateDataGrid()
+        {
+            MainDataGrid.ItemsSource = null;
+            MainDataGrid.ItemsSource = await GetEmployee();
+
+        }
 
 
-        //    MainDataGrid.ItemsSource = employees;
 
-        //}
-
-
-    
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
@@ -101,7 +96,7 @@ namespace UserAdminApp
         }
         private void Button_Click_Reset(object sender, RoutedEventArgs e)
         {
-
+            this.resetAll();
         }
         private void resetAll()
         {
@@ -130,19 +125,23 @@ namespace UserAdminApp
                 case 0:
                     msg = "Row Inserted Successfully!";
                     OrganizationMethods.PostMethod(statement);
-
+                    this.resetAll();
                     break;
                 case 1:
                     msg = "Row Updated Successfully!";
                     OrganizationMethods.PutMethod(statement,id);
+                    this.resetAll();
                     break;
                 case 2:
                     msg = "Row Deleted Successfully!";
                     OrganizationMethods.DeleteMethod(id);
+                    this.resetAll();
                     break;
+
             }
                     MessageBox.Show(msg);
-     //               this.GetEmployee();
+            this.UpdateDataGrid();
+        
         }
 
      
@@ -170,6 +169,9 @@ namespace UserAdminApp
             }
         }
 
-
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.UpdateDataGrid();
+        }
     }
 }

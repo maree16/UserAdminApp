@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
@@ -18,7 +19,7 @@ namespace UserAdminApp.ApiControl
         // A task is an object that represents some work that should be done. 
         // The task can tell you if the work is completed and if the operation returns a result
 
-        public static async Task<List<EmployeeModel>> LoadEmployee()
+        public static async Task<ObservableCollection<EmployeeModel>> LoadEmployee()
         {
             string Url = ConfigurationManager.AppSettings["EmployeeGetApi"];
 
@@ -27,7 +28,7 @@ namespace UserAdminApp.ApiControl
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    var employees =  await response.Content.ReadAsAsync<List<EmployeeModel>>();
+                    var employees =  await response.Content.ReadAsAsync<ObservableCollection<EmployeeModel>>();
                     return employees;
                 }
                 else
