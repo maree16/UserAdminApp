@@ -38,11 +38,7 @@ namespace UserAdminApp
         private async Task<ObservableCollection<EmployeeModel>> GetEmployee()
         {
             var employees = await EmployeeProcessor.LoadEmployee();
-
-
             return employees;
-
-
         }
 
 
@@ -117,42 +113,40 @@ namespace UserAdminApp
         private  void AUD(EmployeeModel statement, int state, string id)
         {
             String msg = "";
-
+            string Model = "Employee";
 
            
             switch (state)
             {
                 case 0:
                     msg = "Row Inserted Successfully!";
-                    OrganizationMethods.PostMethod(statement);
+                    HttpMethods.PostMethod(statement, Model);
+                    this.UpdateDataGrid();
                     this.resetAll();
                     break;
+
                 case 1:
                     msg = "Row Updated Successfully!";
-                    OrganizationMethods.PutMethod(statement,id);
+                    HttpMethods.PutMethod(statement,id, Model);
+                    this.UpdateDataGrid();
                     this.resetAll();
                     break;
+
                 case 2:
                     msg = "Row Deleted Successfully!";
-                    OrganizationMethods.DeleteMethod(id);
+                    HttpMethods.DeleteMethod(Model,id);
+                    this.UpdateDataGrid();
                     this.resetAll();
                     break;
 
             }
                     MessageBox.Show(msg);
-            this.UpdateDataGrid();
-        
         }
 
      
         private void MainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dg = sender as DataGrid;
-
-            MessageBox.Show("SelectionChanged event happened!");
-
-            DataGridRow dr = dg.SelectedItem as DataGridRow;
-
             EmployeeModel employee = (EmployeeModel)dg.SelectedItem;
             if (employee != null)
             {

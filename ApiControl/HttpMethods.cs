@@ -9,12 +9,22 @@ using System.Threading.Tasks;
 
 namespace UserAdminApp.ApiControl
 {
-    public class OrganizationMethods: OrganizationProcessor
+    public class HttpMethods: OrganizationProcessor
     {
         //POST 
-        public static async void PostMethod(EmployeeModel jsondata)
+        public static async void PostMethod(EmployeeModel jsondata, string model)
         {
-            string Url = ConfigurationManager.AppSettings["EmployeePostApi"];
+            String Url = null;
+            
+            if (model == "Employee")
+            {
+                 Url = ConfigurationManager.AppSettings["EmployeePostApi"];
+            }
+            else if (model == "Organization") 
+            { 
+                 Url = ConfigurationManager.AppSettings["OrganizationPostApi"];
+
+            }
 
             using (HttpResponseMessage response = await ApiHelper.http.PostAsJsonAsync(Url, jsondata))
             {
@@ -31,9 +41,19 @@ namespace UserAdminApp.ApiControl
 
 
         //PUT
-        public static async void  PutMethod(EmployeeModel jsondata,string id )
+        public static async void  PutMethod(EmployeeModel jsondata,string id , string model)
         {
-            string Url = ConfigurationManager.AppSettings["EmployeePutApi"]+id;
+            String Url = null;
+
+            if (model == "Employee")
+            {
+                 Url = ConfigurationManager.AppSettings["EmployeePutApi"] + id;
+            }
+            else if (model == "Organization")
+            {
+                 Url = ConfigurationManager.AppSettings["OrganizationPutApi"] + id;
+
+            }
 
             using (HttpResponseMessage response = await ApiHelper.http.PutAsJsonAsync(Url, jsondata))
             {
@@ -49,9 +69,20 @@ namespace UserAdminApp.ApiControl
         }
 
         // Delete Method 
-        public static async void DeleteMethod(string id)
+        public static async void DeleteMethod(string id, string model)
         {
-            string Url = ConfigurationManager.AppSettings["EmployeePutApi"] + id;
+            String Url = null;
+
+            if (model == "Employee")
+            {
+
+                Url = ConfigurationManager.AppSettings["EmployeePutApi"] + id;
+            }
+            else if (model == "Organization") {
+
+                Url = ConfigurationManager.AppSettings["OrganizationPutApi"] + id;
+
+            }
 
             using (HttpResponseMessage response = await ApiHelper.http.DeleteAsync(Url))
             {
@@ -66,5 +97,4 @@ namespace UserAdminApp.ApiControl
             }
         }
     }
-    // DELETE
 }
