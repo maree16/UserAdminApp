@@ -65,13 +65,6 @@ namespace UserAdminApp
         //}
 
 
-        private async void GetOrganization(object sender, RoutedEventArgs e)
-        {
-            var organization = await OrganizationProcessor.LoadOrganization();
-//            buttonText.Text = organization.OrganizationName.ToString();
-
-        }
-
     
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
@@ -113,7 +106,9 @@ namespace UserAdminApp
             if (employee != null)
             {
 
-                       firstName_txtbox.Text = employee.FirstName.ToString();
+                employeeId_txtbox.Text = employee.Id.ToString();
+
+                firstName_txtbox.Text = employee.FirstName.ToString();
                         lastName_txtbox.Text = employee.LastName.ToString();
 
                 Add_btn.IsEnabled = false;
