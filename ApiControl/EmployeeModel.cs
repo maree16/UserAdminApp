@@ -12,9 +12,5 @@ namespace UserAdminApp.ApiControl
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public static explicit operator EmployeeModel(List<EmployeeModel> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
