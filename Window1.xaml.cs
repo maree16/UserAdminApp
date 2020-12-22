@@ -29,8 +29,20 @@ namespace UserAdminApp
         {
         
             InitializeComponent();
-            
+            ApiHelper.InitializeClient();
+
+
         }
+
+        private async void GetEmployee(object sender, RoutedEventArgs e)
+        {
+           List<EmployeeModel> employees = await EmployeeProcessor.LoadEmployee();
+
+            MainDataGrid.ItemsSource = employees;
+
+
+        }
+
 
 
         // Add loadingrow function In datagrid for that
@@ -39,18 +51,18 @@ namespace UserAdminApp
         //    e.Row.Header = (e.Row.GetIndex()).ToString();
         //}
 
-        private void UpdateDataGrid()
-        {
-            DataTable dt = new DataTable();
-            ObservableCollection<Employee> employees = new ObservableCollection<Employee>(); 
-            employees.Add(new Employee() { FirstName = "John", LastName = " Doe", });
-            employees.Add(new Employee() { FirstName = "Jane", LastName = " Doe", });
-            employees.Add(new Employee() { FirstName = "Sammy", LastName = " Doe", });
+        //private void UpdateDataGrid()
+        //{
+        //    DataTable dt = new DataTable();
+        //    ObservableCollection<Employee> employees = new ObservableCollection<Employee>(); 
+        //    employees.Add(new Employee() { FirstName = "John", LastName = " Doe", });
+        //    employees.Add(new Employee() { FirstName = "Jane", LastName = " Doe", });
+        //    employees.Add(new Employee() { FirstName = "Sammy", LastName = " Doe", });
 
-     
-            MainDataGrid.ItemsSource = employees;
 
-        }
+        //    MainDataGrid.ItemsSource = employees;
+
+        //}
 
 
         private async void GetOrganization(object sender, RoutedEventArgs e)
@@ -60,14 +72,7 @@ namespace UserAdminApp
 
         }
 
-        
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-            this.UpdateDataGrid();
-        
-        }
-
+    
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
@@ -94,12 +99,7 @@ namespace UserAdminApp
 
     
 
-    public class Employee
-        {
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-        
-        }
+   
 
         private void MainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -109,7 +109,7 @@ namespace UserAdminApp
 
             DataGridRow dr = dg.SelectedItem as DataGridRow;
 
-            Employee employee = (Employee)dg.SelectedItem;
+            EmployeeModel employee = (EmployeeModel)dg.SelectedItem;
             if (employee != null)
             {
 

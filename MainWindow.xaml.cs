@@ -19,14 +19,7 @@ namespace UserAdminApp
             ApiHelper.InitializeClient();
         }
 
-        /* private async void GetOrganization(object sender, RoutedEventArgs e)
-        {
-            var organization = await OrganizationProcessor.LoadOrganization();
-           /// buttonText.Text = organization.OrganizationRegistrationNumber.ToString();
-           
-        }
-        */
-        
+      
         private void ChangeTheme(object sender, RoutedEventArgs e)
         {
             switch (int.Parse(((MenuItem)sender).Uid))

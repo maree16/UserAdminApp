@@ -91,6 +91,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApiControl\EmployeeModel.cs" />
+    <Compile Include="ApiControl\EmployeeProcessor.cs" />
     <Compile Include="ApiControl\OrganizationMethods.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Themes\ColourfulDarkTheme.xaml.cs">
