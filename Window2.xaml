@@ -6,8 +6,73 @@
         xmlns:local="clr-namespace:UserAdminApp"
         mc:Ignorable="d"
         Title="Organization Records"   Style="{DynamicResource CustomWindowStyle}"
-        Height="400" Width="520" BorderThickness="1" WindowStartupLocation="CenterScreen">
+         Height="560" Width="830" BorderThickness="2" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+
+        <GroupBox Header="Organization Record"   Padding="10" Grid.Column="1"  Grid.RowSpan="4" HorizontalAlignment="Stretch" Margin="0,10,124,47">
+            <StackPanel VerticalAlignment="Top" Margin="10,10,10,0" Height="296">
+                <TextBox x:Name="organizationId_txtbox" Text="" Opacity="0.1"  Visibility="Hidden"/>
+
+
+                <TextBlock Margin="0,0,0,8">Organization Name:</TextBlock>
+                <TextBox x:Name="organizationName_txtbox" Text="" Margin="-5,0,0,8" />
+
+                <TextBlock Margin="0,0,0,8">Organization Type:</TextBlock>
+                <TextBox x:Name="organizationType_txtbox" Text="" Margin="0,0,0,8" />
+
+                <TextBlock Margin="0,0,0,8">Organization Url:</TextBlock>
+                <TextBox x:Name="organizationUrl_txtbox" Text="" Margin="0,0,0,8" />
+
+                <TextBlock Margin="0,0,0,8">Organization Registration Number:</TextBlock>
+                <TextBox x:Name="organizationRegistrationNumber_txtbox" Text="" Margin="0,0,0,8" />
+
+            </StackPanel>
+
+        </GroupBox>
+
+        <WrapPanel  Grid.Row="4"  Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal" Width="256" Margin="0,10,0,0">
+            <Button x:Name="Add_btn" Content="Add"  Height="30"   Width="80" Click="Button_Click_Add"/>
+            <Button x:Name="Update_btn" Content="Update"  Height="30"  Width="80" Click="Button_Click_Update" Margin="8,8,8,8"/>
+            <Button x:Name="Delete_btn" Content="Delete"  Height="30"  Width="80" Click="Button_Click_Delete"  />
+            <Button x:Name="Reset_btn" Content="Reset Form"  Height="30"  Width="80" Click="Button_Click_Reset" Margin="90,0,0,0"/>
+
+        </WrapPanel>
+        <DataGrid x:Name="MainDataGrid"  AutoGenerateColumns="False"  Grid.Column="1" HorizontalAlignment="Stretch" Height="485" Margin="293,2,8,0" Grid.Row="1" Grid.RowSpan="4" VerticalAlignment="Top"  SelectionChanged="MainDataGrid_SelectionChanged" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding}" Grid.ColumnSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Visibility="Hidden">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding OrganizationName}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Type" Binding="{Binding OrganizationType}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Url" Binding="{Binding OrganizationUrl}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="R,N0" Binding="{Binding OrganizationRegistrationNumber}">
+                </DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+
     </Grid>
 </Window>

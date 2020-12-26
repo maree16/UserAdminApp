@@ -8,6 +8,8 @@ namespace UserAdminApp.ApiControl
 {
     public class OrganizationModel
     {
+        public string Id { get; set; }
+
         public string OrganizationName { get; set; }
         public string OrganizationType { get; set; }
         public string OrganizationUrl { get; set; }

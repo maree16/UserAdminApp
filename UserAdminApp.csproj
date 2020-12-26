@@ -91,9 +91,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ApiControl\EmployeeModel.cs" />
-    <Compile Include="ApiControl\EmployeeProcessor.cs" />
-    <Compile Include="ApiControl\HttpMethods.cs" />
+    <Compile Include="Apis\EmployeeModel.cs" />
+    <Compile Include="Apis\EmployeeProcessor.cs" />
+    <Compile Include="Apis\EmployeeMethods.cs" />
+    <Compile Include="Apis\OrganizationMethods.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Themes\ColourfulDarkTheme.xaml.cs">
       <DependentUpon>ColourfulDarkTheme.xaml</DependentUpon>
@@ -118,9 +119,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="ApiControl\ApiHelper.cs" />
-    <Compile Include="ApiControl\OrganizationModel.cs" />
-    <Compile Include="ApiControl\OrganizationProcessor.cs" />
+    <Compile Include="Apis\HttpClient.cs" />
+    <Compile Include="Apis\OrganizationModel.cs" />
+    <Compile Include="Apis\OrganizationProcessor.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>

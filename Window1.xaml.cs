@@ -17,6 +17,7 @@ using System.Configuration;
 using UserAdminApp.ApiControl;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace UserAdminApp
 {
@@ -113,28 +114,27 @@ namespace UserAdminApp
         private  void AUD(EmployeeModel statement, int state, string id)
         {
             String msg = "";
-            string Model = "Employee";
-
+         
            
             switch (state)
             {
                 case 0:
                     msg = "Row Inserted Successfully!";
-                    HttpMethods.PostMethod(statement, Model);
+                    EmployeeMethods.PostMethod(statement);
                     this.UpdateDataGrid();
                     this.resetAll();
                     break;
 
                 case 1:
                     msg = "Row Updated Successfully!";
-                    HttpMethods.PutMethod(statement,id, Model);
+                    EmployeeMethods.PutMethod(statement,id);
                     this.UpdateDataGrid();
                     this.resetAll();
                     break;
 
                 case 2:
                     msg = "Row Deleted Successfully!";
-                    HttpMethods.DeleteMethod(Model,id);
+                    EmployeeMethods.DeleteMethod(id);
                     this.UpdateDataGrid();
                     this.resetAll();
                     break;
