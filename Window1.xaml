@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UserAdminApp"
         mc:Ignorable="d"
         Title="Employee Records"   Style="{DynamicResource CustomWindowStyle}"
-         Height="400" Width="620" BorderThickness="1" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+         Height="400" Width="620" BorderThickness="1" WindowStartupLocation="CenterScreen" >
     <Grid>
 
         <Grid.RowDefinitions>
@@ -51,13 +51,15 @@
             <Button x:Name="Reset_btn" Content="Reset Form"  Height="30"  Width="80" Click="Button_Click_Reset" Margin="90,0,0,0"/>
 
         </WrapPanel>
-        <DataGrid x:Name="MainDataGrid"  AutoGenerateColumns="False"   Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="Left" Height="287" Margin="10,0,0,0" Grid.Row="1" Grid.RowSpan="4" VerticalAlignment="Top" Width="295" SelectionChanged="MainDataGrid_SelectionChanged" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding}" >
+
+
+        <DataGrid x:Name="MainDataGrid"  AutoGenerateColumns="False"   Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="Left" Height="287" Margin="10,0,0,0" Grid.Row="1" Grid.RowSpan="4" VerticalAlignment="Top" Width="295" SelectionChanged="MainDataGrid_SelectionChanged" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding EmployeeList,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Visibility="Hidden">
+                <DataGridTextColumn Header="Id" Binding="{Binding Id , Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Visibility="Hidden">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}">
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName  , Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}">
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName  , Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}">
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

@@ -17,7 +17,10 @@ using System.Configuration;
 using UserAdminApp.ApiControl;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Http;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Diagnostics;
+using UserAdminApp.Apis;
 
 namespace UserAdminApp
 {
@@ -26,124 +29,147 @@ namespace UserAdminApp
     /// </summary>
     public partial class Window1 : Window
     {
-
+        // Declare the event
+        EmployeeViewModel ViewModel = new EmployeeViewModel();
         public Window1()
         {
-        
             InitializeComponent();
             ApiHelper.InitializeClient();
-
-
+            this.DataContext = ViewModel;
         }
 
-        private async Task<ObservableCollection<EmployeeModel>> GetEmployee()
-        {
-            var employees = await EmployeeProcessor.LoadEmployee();
-            return employees;
-        }
-
-
-
-        // Add loadingrow function In datagrid for that
-        //void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
-        //{
-        //    e.Row.Header = (e.Row.GetIndex()).ToString();
-        //}
-
-        private async void UpdateDataGrid()
-        {
-            MainDataGrid.ItemsSource = null;
-            MainDataGrid.ItemsSource = await GetEmployee();
-
-        }
 
 
 
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-            var first_Name = firstName_txtbox.Text;
-             var last_Name = lastName_txtbox.Text;
-            EmployeeModel p = new EmployeeModel { FirstName = first_Name, LastName = last_Name };
+            var firstName = firstName_txtbox.Text;
+            var lastName = lastName_txtbox.Text;
+            var employeeId = employeeId_txtbox.Text;
 
-        
-            this.AUD(p, 0, null);
+            if (firstName != "" && lastName != "")
+            {
 
+                EmployeeModel p = new EmployeeModel
+                {
+                    Id = "employee-"+Guid.NewGuid().ToString(),
+                    FirstName = firstName,
+                    LastName = lastName
+
+                };
+
+                this.AUD(p, 0, null);
+                ViewModel.EmployeeList.Add(p);
+            }
+            else
+            {
+
+                MessageBox.Show("Fields are required");
+            }
         }
 
-        private void Button_Click_Update(object sender, RoutedEventArgs e)
-        {
 
-            var first_Name = firstName_txtbox.Text;
-            string id = employeeId_txtbox.Text;
-            var last_Name = lastName_txtbox.Text;
-            EmployeeModel p = new EmployeeModel { FirstName = first_Name , LastName = last_Name };
+private void Button_Click_Update(object sender, RoutedEventArgs e)
+{
 
-            //Tranform it to Json object
-          
-       
-              this.AUD(p, 1, id);
+    var firstName = firstName_txtbox.Text;
+    var lastName = lastName_txtbox.Text;
+    var id = employeeId_txtbox.Text;
 
-        }
-        private void Button_Click_Delete(object sender, RoutedEventArgs e)
-        {
-            string id = employeeId_txtbox.Text;
+    EmployeeModel p = new EmployeeModel
+    {
+        FirstName = firstName,
+        LastName = lastName
 
-            this.AUD(null, 2, id);
-        }
-        private void Button_Click_Reset(object sender, RoutedEventArgs e)
-        {
-            this.resetAll();
-        }
-        private void resetAll()
-        {
-            employeeId_txtbox.Text = "";
-            firstName_txtbox.Text = "";
-            lastName_txtbox.Text = "";
-      
-            Add_btn.IsEnabled = true;
-            Update_btn.IsEnabled = false;
-            Delete_btn.IsEnabled = false;
-        }
+    };
 
-        private void reset_btn_Click(object sender, RoutedEventArgs e)
-        {
-            this.resetAll();
-        }
+    //Tranform it to Json object
 
-        private  void AUD(EmployeeModel statement, int state, string id)
+
+    this.AUD(p, 1, id);
+    var index = ViewModel.EmployeeList.FirstOrDefault(employee => employee.Id == id);
+    if (index != null)
+    {
+        ViewModel.EmployeeList.Remove(index);
+    }
+
+    EmployeeModel newEmployee = new EmployeeModel
+    {
+        Id = id,
+        FirstName = firstName,
+        LastName = lastName
+    };
+
+    ViewModel.EmployeeList.Add(newEmployee);
+
+}
+private void Button_Click_Delete(object sender, RoutedEventArgs e)
+{
+    string id = employeeId_txtbox.Text;
+
+    this.AUD(null, 2, id);
+
+    var index = ViewModel.EmployeeList.FirstOrDefault(employee => employee.Id == id);
+    if (index != null)
+    {
+                ViewModel.EmployeeList.Remove(index);
+    }
+}
+private void Button_Click_Reset(object sender, RoutedEventArgs e)
+{
+    this.resetAll();
+}
+private void resetAll()
+{
+    employeeId_txtbox.Text = "";
+    firstName_txtbox.Text = "";
+    lastName_txtbox.Text = "";
+
+    Add_btn.IsEnabled = true;
+    Update_btn.IsEnabled = false;
+    Delete_btn.IsEnabled = false;
+}
+
+private void reset_btn_Click(object sender, RoutedEventArgs e)
+{
+    this.resetAll();
+}
+
+        private void AUD(EmployeeModel statement, int state, string id)
         {
             String msg = "";
-         
-           
+
+
             switch (state)
             {
                 case 0:
                     msg = "Row Inserted Successfully!";
                     EmployeeMethods.PostMethod(statement);
-                    this.UpdateDataGrid();
+                    this.UpdateGrid();
                     this.resetAll();
                     break;
 
                 case 1:
                     msg = "Row Updated Successfully!";
-                    EmployeeMethods.PutMethod(statement,id);
-                    this.UpdateDataGrid();
+                    EmployeeMethods.PutMethod(statement, id);
+                    this.UpdateGrid();
                     this.resetAll();
                     break;
 
                 case 2:
                     msg = "Row Deleted Successfully!";
                     EmployeeMethods.DeleteMethod(id);
-                    this.UpdateDataGrid();
+                    this.UpdateGrid();
                     this.resetAll();
                     break;
 
             }
-                    MessageBox.Show(msg);
+            MessageBox.Show(msg);
         }
 
-     
+
+
         private void MainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dg = sender as DataGrid;
@@ -152,9 +178,8 @@ namespace UserAdminApp
             {
 
                 employeeId_txtbox.Text = employee.Id.ToString();
-
                 firstName_txtbox.Text = employee.FirstName.ToString();
-                        lastName_txtbox.Text = employee.LastName.ToString();
+                lastName_txtbox.Text = employee.LastName.ToString();
 
                 Add_btn.IsEnabled = false;
                 Update_btn.IsEnabled = true;
@@ -163,9 +188,17 @@ namespace UserAdminApp
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void UpdateGrid()
         {
-            this.UpdateDataGrid();
+            MainDataGrid.ItemsSource = null;
+            MainDataGrid.ItemsSource = ViewModel.EmployeeList;
+            MainDataGrid.Items.Refresh();
         }
+
     }
 }
+
+
+
+
+

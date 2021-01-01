@@ -17,6 +17,10 @@ using System.Configuration;
 using UserAdminApp.ApiControl;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Diagnostics;
+using UserAdminApp.Apis;
 
 namespace UserAdminApp
 {
@@ -25,66 +29,46 @@ namespace UserAdminApp
     /// </summary>
     public partial class Window2 : Window
     {
-
+        // Declare the event
+        OrganizationViewModel ViewModel = new OrganizationViewModel();
         public Window2()
         {
             InitializeComponent();
             ApiHelper.InitializeClient();
-        }
-
-        private async Task<ObservableCollection<OrganizationModel>> GetOrganization()
-        {
-            ObservableCollection<OrganizationModel> organizations = null;
-            organizations = await  OrganizationProcessor.LoadOrganization();
-            return organizations;
+            this.DataContext = ViewModel;
         }
 
 
-
-        // Add loadingrow function In datagrid for that
-        //void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
-        //{
-        //    e.Row.Header = (e.Row.GetIndex()).ToString();
-        //}
-
-        private async void UpdateDataGrid()
-        {
-            MainDataGrid.ItemsSource = null;         
-            MainDataGrid.ItemsSource = await GetOrganization();
-            MainDataGrid.Items.Refresh();
-
-        }
-
-
-
-
+        
+    
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-            var organization_Name = organizationName_txtbox.Text;
-            var organization_Type = organizationType_txtbox.Text;
-            var organization_Url = organizationUrl_txtbox.Text;
-         
-            if (organization_Name != "" && organization_Url != "" && organization_Type != "" && organizationRegistrationNumber_txtbox.Text != "" )
+            var organizationName = organizationName_txtbox.Text;
+            var organizationType = organizationType_txtbox.Text;
+            var organizationUrl = organizationUrl_txtbox.Text;
+
+            if (organizationName != "" && organizationUrl != "" && organizationType != "" && organizationRegistrationNumber_txtbox.Text != "")
             {
                 var organization_ResgirationNumber = Convert.ToInt16(organizationRegistrationNumber_txtbox.Text);
 
-                OrganizationModel p = new OrganizationModel {
-                    OrganizationName = organization_Name,
-                    OrganizationType = organization_Type,
-                    OrganizationUrl = organization_Url,
+                OrganizationModel p = new OrganizationModel
+                {
+                    Id = "organization-"+ Guid.NewGuid().ToString(),
+                    OrganizationName = organizationName,
+                    OrganizationType = organizationType,
+                    OrganizationUrl = organizationUrl,
                     OrganizationRegistrationNumber = organization_ResgirationNumber
 
 
                 };
 
-
                 this.AUD(p, 0, null);
-
+                 ViewModel.OrganizationList.Add(p);
             }
             else
             {
 
-                MessageBox.Show("Fields are required");
+               MessageBox.Show("Fields are required");
             }
         }
 
@@ -108,8 +92,24 @@ namespace UserAdminApp
             };
 
             //Tranform it to Json object
+            OrganizationModel newM = new OrganizationModel
+            {
+                Id = organizationId_txtbox.Text,
+                OrganizationName = organization_Name,
+                OrganizationType = organization_Type,
+                OrganizationUrl = organization_Url,
+                OrganizationRegistrationNumber = organization_ResgirationNumber
 
 
+            };
+
+            var OldModel = ViewModel.OrganizationList.FirstOrDefault(organization => organization.Id == id);
+            if (OldModel != null)
+            {
+               ViewModel.OrganizationList.Remove(OldModel);
+            }
+
+            ViewModel.OrganizationList.Add(newM);
             this.AUD(p, 1, id);
 
         }
@@ -117,7 +117,15 @@ namespace UserAdminApp
         {
             string id = organizationId_txtbox.Text;
 
+            var OldModel = ViewModel.OrganizationList.FirstOrDefault(organization => organization.Id == id);
+            if (OldModel != null)
+            {
+                ViewModel.OrganizationList.Remove(OldModel);
+            }
+
+
             this.AUD(null, 2, id);
+
         }
         private void Button_Click_Reset(object sender, RoutedEventArgs e)
         {
@@ -151,21 +159,21 @@ namespace UserAdminApp
                 case 0:
                     msg = "Row Inserted Successfully!";
                     OrganizationMethods.PostMethod(statement);
-                    this.UpdateDataGrid();
+                    this.UpdateGrid();
                     this.resetAll();
                     break;
 
                 case 1:
                     msg = "Row Updated Successfully!";
                     OrganizationMethods.PutMethod(statement, id);
-                    this.UpdateDataGrid();
+                    this.UpdateGrid();
                     this.resetAll();
                     break;
 
                 case 2:
                     msg = "Row Deleted Successfully!";
                     OrganizationMethods.DeleteMethod(id);
-                    this.UpdateDataGrid();
+                    this.UpdateGrid();
                     this.resetAll();
                     break;
 
@@ -195,9 +203,14 @@ namespace UserAdminApp
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void UpdateGrid() 
         {
-            this.UpdateDataGrid();
+            MainDataGrid.ItemsSource = null;
+            MainDataGrid.ItemsSource = ViewModel.OrganizationList;
+            MainDataGrid.Items.Refresh();
         }
+        
     }
 }
+
+

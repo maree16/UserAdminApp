@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UserAdminApp"
         mc:Ignorable="d"
         Title="Organization Records"   Style="{DynamicResource CustomWindowStyle}"
-         Height="560" Width="830" BorderThickness="2" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize">
+         Height="560" Width="830" BorderThickness="2" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -30,21 +30,20 @@
 
 
         <GroupBox Header="Organization Record"   Padding="10" Grid.Column="1"  Grid.RowSpan="4" HorizontalAlignment="Stretch" Margin="0,10,124,47">
-            <StackPanel VerticalAlignment="Top" Margin="10,10,10,0" Height="296">
+            <StackPanel VerticalAlignment="Top" Margin="10,10,10,0" Height="250">
                 <TextBox x:Name="organizationId_txtbox" Text="" Opacity="0.1"  Visibility="Hidden"/>
 
-
-                <TextBlock Margin="0,0,0,8">Organization Name:</TextBlock>
-                <TextBox x:Name="organizationName_txtbox" Text="" Margin="-5,0,0,8" />
+                <TextBlock Margin="0,-20,0,8">Organization Name:</TextBlock>
+                <TextBox x:Name="organizationName_txtbox" Text="" Margin="0,0,0,8" Padding="1" />
 
                 <TextBlock Margin="0,0,0,8">Organization Type:</TextBlock>
-                <TextBox x:Name="organizationType_txtbox" Text="" Margin="0,0,0,8" />
+                <TextBox x:Name="organizationType_txtbox" Text="" Margin="0,0,0,8" Padding="1" />
 
                 <TextBlock Margin="0,0,0,8">Organization Url:</TextBlock>
-                <TextBox x:Name="organizationUrl_txtbox" Text="" Margin="0,0,0,8" />
+                <TextBox x:Name="organizationUrl_txtbox" Text="" Margin="0,0,0,8" Padding="1"/>
 
                 <TextBlock Margin="0,0,0,8">Organization Registration Number:</TextBlock>
-                <TextBox x:Name="organizationRegistrationNumber_txtbox" Text="" Margin="0,0,0,8" />
+                <TextBox x:Name="organizationRegistrationNumber_txtbox" Text="" Margin="0,0,0,8" Padding="1" />
 
             </StackPanel>
 
@@ -57,17 +56,17 @@
             <Button x:Name="Reset_btn" Content="Reset Form"  Height="30"  Width="80" Click="Button_Click_Reset" Margin="90,0,0,0"/>
 
         </WrapPanel>
-        <DataGrid x:Name="MainDataGrid"  AutoGenerateColumns="False"  Grid.Column="1" HorizontalAlignment="Stretch" Height="485" Margin="293,2,8,0" Grid.Row="1" Grid.RowSpan="4" VerticalAlignment="Top"  SelectionChanged="MainDataGrid_SelectionChanged" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding}" Grid.ColumnSpan="2">
+        <DataGrid x:Name="MainDataGrid"  AutoGenerateColumns="False"  Grid.Column="1" HorizontalAlignment="Stretch" Height="465" Margin="293,0,8,0" Grid.Row="1" Grid.RowSpan="4" VerticalAlignment="Top"  SelectionChanged="MainDataGrid_SelectionChanged" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding OrganizationList,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  Grid.ColumnSpan="2" CanUserDeleteRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Visibility="Hidden">
+                <DataGridTextColumn Header="Id" Binding="{Binding Id , Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Visibility="Hidden">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Binding="{Binding OrganizationName}">
+                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding OrganizationName , Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Type" Binding="{Binding OrganizationType}">
+                <DataGridTextColumn Header="Type" Width="*" Binding="{Binding OrganizationType , Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Url" Binding="{Binding OrganizationUrl}">
+                <DataGridTextColumn Header="Url" Width="*" Binding="{Binding OrganizationUrl , Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="R,N0" Binding="{Binding OrganizationRegistrationNumber}">
+                <DataGridTextColumn Header="R,N0" Width="*" Binding="{Binding OrganizationRegistrationNumber, Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}">
                 </DataGridTextColumn>
 
             </DataGrid.Columns>

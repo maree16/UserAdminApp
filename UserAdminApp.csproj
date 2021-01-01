@@ -94,7 +94,9 @@
     <Compile Include="Apis\EmployeeModel.cs" />
     <Compile Include="Apis\EmployeeProcessor.cs" />
     <Compile Include="Apis\EmployeeMethods.cs" />
+    <Compile Include="Apis\EmployeeViewModel.cs" />
     <Compile Include="Apis\OrganizationMethods.cs" />
+    <Compile Include="Apis\OrganizationViewModel.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Themes\ColourfulDarkTheme.xaml.cs">
       <DependentUpon>ColourfulDarkTheme.xaml</DependentUpon>
