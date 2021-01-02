@@ -31,10 +31,10 @@ namespace UserAdminApp.Apis
         private async void GetOrganization()
         {
             //  ObservableCollection<OrganizationModel> organizations = null;
-            var organizationg = await OrganizationProcessor.LoadOrganization();
-            foreach (OrganizationModel orga in organizationg)
+            var organizationGroup = await OrganizationProcessor.LoadOrganization();
+            foreach (OrganizationModel organization in organizationGroup)
             {
-                OrganizationList.Add(orga);
+                OrganizationList.Add(organization);
             }
 
         }
