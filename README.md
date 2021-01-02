@@ -1,12 +1,12 @@
 # UserAdminApp
-This is WPF application which purpose is to perform CRUD operations on ElasticSearch data.
+This is a WPF application which purpose is to perform CRUD operations on ElasticSearch data.
 To run this Application 
 
 download 
 maree16/EmployeeEventFlowWithElasticSearch
 maree16/EventFlowWithElasticSearchOrganization 
 
-each solution has two Api 
+Each solution has two Api 
 1) EventFlowApi 
 2) EventFlowApi.Read 
 
